@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # Serviço para o ambiente de Produção (PRD)
+  prd:
+    image: rmerces/web-prd:1
+    container_name: web-prd
+    ports:
+      - "8080:8080" # Mapeia a porta 80 do container para a porta 80 do host
+    restart: always # Garante que o container sempre reinicie se parar
+    networks:
+      - ambiente_web # Adiciona este serviço à rede 'ambiente_web'
+
+  # Serviço para o ambiente de Homologação (HML)
+  hml:
+    image: rmerces/web-hml:1
+    container_name: web-hml
+    ports:
+      - "8081:8080" # Mapeia a porta 80 do container para a porta 81 do host (evitar conflito com PRD)
+    restart: always
+    networks:
+      - ambiente_web # Adiciona este serviço à rede 'ambiente_web'
+
+  # Serviço para o ambiente de Desenvolvimento (DEV)
+  dev:
+    image: rmerces/web-dev:1
+    container_name: web-dev
+    ports:
+      - "8082:8080" # Mapeia a porta 80 do container para a porta 82 do host
+    restart: always
+    networks:
+      - ambiente_web # Adiciona este serviço à rede 'ambiente_web'
+
+---
+
+networks:
+  ambiente_web:
+    driver: bridge

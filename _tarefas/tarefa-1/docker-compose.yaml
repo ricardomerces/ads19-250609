@@ -1,0 +1,12 @@
+version: '2.0'
+services:
+  web:
+    image: fbscarel/myapp-redis
+    ports:
+      - "35080:80"
+    links:
+      - db
+  db:
+    image: redis
+    ports:
+      - "6379:6379"
