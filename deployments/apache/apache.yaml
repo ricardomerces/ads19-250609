@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-deployment
+  labels:
+    app: apache
+spec:
+  replicas: 3 # Specifies that 3 replicas (pods) of the Apache server should be running
+  selector:
+    matchLabels:
+      app: apache # This selector ensures the Deployment manages pods with the label "app: apache"
+  template:
+    metadata:
+      labels:
+        app: apache # Labels applied to the pods created by this Deployment
+    spec:
+      containers:
+      - name: apache # Name of the container within the pod
+        image: httpd:latest # Uses the latest official Apache HTTP Server image from Docker Hub
+        ports:
+        - containerPort: 80 # The port that the container exposes (default HTTP port for Apache)
+        # You can add resource limits, probes, and other configurations here if needed.
+      tolerations: # Adicionado toleration para agendamento de pods
+      - key: "apps"
+        operator: "Equal"
+        value: "tipob"
+        effect: "NoSchedule" # O efeito 'NoSchedule' significa que os pods só podem ser agendados em nós que possuem esta tolerância.
+      nodeSelector: # Adicionado nodeSelector para agendamento de pods
+        hw: high # O nodeSelector garante que os pods sejam agendados apenas em

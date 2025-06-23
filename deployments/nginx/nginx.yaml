@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 6 # Specifies that Kubernetes should maintain 3 replicas of this pod
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest # Uses the latest Nginx official image from Docker Hub
+        ports:
+        - containerPort: 80 # Exposes port 80 for the Nginx web server
+        resources:
+          limits:
+            cpu: "500m" # Requests 0.5 CPU core
+            memory: "128Mi" # Requests 128 MiB of memory
+          requests:
+            cpu: "250m" # Limits to 0.5 CPU core
+            memory: "64Mi" # Limits to 128 MiB of memory
