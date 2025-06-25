@@ -5,7 +5,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 6 # Specifies that Kubernetes should maintain 3 replicas of this pod
+  replicas: 3 # Specifies that Kubernetes should maintain 3 replicas of this pod
   selector:
     matchLabels:
       app: nginx
