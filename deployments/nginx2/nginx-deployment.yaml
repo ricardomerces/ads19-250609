@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nginx2
-        image: nginx:latest # Usaremos a imagem mais recente do Nginx
+        image: nginx:1.28.0 # Usaremos a imagem mais recente do Nginx
         ports:
         - containerPort: 80 # A porta padrão do Nginx
